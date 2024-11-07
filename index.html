@@ -76,6 +76,8 @@
         <input type="text" id="answerInput1" placeholder="정답 입력">
         <input type="text" id="answerInput2" placeholder="정답 입력">
         <input type="text" id="answerInput3" placeholder="정답 입력">
+        
+        <!-- 확인 버튼을 정답 입력란 아래에 배치 -->
         <button onclick="checkAnswer()">확인</button>
     </div>
 
@@ -105,14 +107,11 @@
                 document.getElementById("answerInput3").value.trim()
             ];
 
-            let correctCount = 0;
-            answers.forEach(answer => {
-                if (correctAnswers.includes(answer)) {
-                    correctCount++;
-                }
-            });
+            // 중복 없이 모든 정답이 입력되었는지 확인
+            const uniqueAnswers = new Set(answers);
+            const allCorrect = correctAnswers.every(answer => uniqueAnswers.has(answer));
 
-            if (correctCount === 3) {
+            if (allCorrect && uniqueAnswers.size === 3) {
                 document.body.innerHTML = `
                     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; background-image: url('https://github.com/HyoungRokRHee/escape1/raw/main/whole.png?raw=true'); background-size: cover; margin-top: 30px;">
                         <h1 style="color: red; font-size: 2em; margin-top: 50px;">2층 영유아부로 가세요.</h1>
