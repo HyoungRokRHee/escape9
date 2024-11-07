@@ -54,8 +54,8 @@
         audio {
             margin-top: 30px;
         }
-        #answerInput {
-            margin-top: 20px; /* 입력란을 오디오 아래로 내리기 */
+        #answerInput1, #answerInput2, #answerInput3 {
+            margin-top: 10px; /* 각 입력란을 오디오 아래로 내리기 */
         }
     </style>
 </head>
@@ -72,8 +72,10 @@
             Your browser does not support the audio element.
         </audio>
 
-        <!-- 정답 입력란 -->
-        <input type="text" id="answerInput" placeholder="정답 입력">
+        <!-- 정답 입력란 3개 -->
+        <input type="text" id="answerInput1" placeholder="정답 입력">
+        <input type="text" id="answerInput2" placeholder="정답 입력">
+        <input type="text" id="answerInput3" placeholder="정답 입력">
         <button onclick="checkAnswer()">확인</button>
     </div>
 
@@ -96,8 +98,21 @@
         }
 
         function checkAnswer() {
-            const answer = document.getElementById("answerInput").value.toUpperCase();
-            if (answer === "아름다운 나라") {
+            const correctAnswers = ["아름다운 나라", "나는 주의 친구", "춤추는 세대"];
+            const answers = [
+                document.getElementById("answerInput1").value.trim(),
+                document.getElementById("answerInput2").value.trim(),
+                document.getElementById("answerInput3").value.trim()
+            ];
+
+            let correctCount = 0;
+            answers.forEach(answer => {
+                if (correctAnswers.includes(answer)) {
+                    correctCount++;
+                }
+            });
+
+            if (correctCount === 3) {
                 document.body.innerHTML = `
                     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; background-image: url('https://github.com/HyoungRokRHee/escape1/raw/main/whole.png?raw=true'); background-size: cover; margin-top: 30px;">
                         <h1 style="color: red; font-size: 2em; margin-top: 50px;">2층 영유아부로 가세요.</h1>
